@@ -1,0 +1,54 @@
+.\" Manpage for ios-camera-extractor
+.TH IOS-CAMERA-EXTRACTOR 1 "May 2025" "1.0" "User Commands"
+.SH NAME
+ios-camera-extractor \- Converts HEIC images to PNG, JPG, and generates a PDF
+.SH SYNOPSIS
+.B ios-camera-extractor
+[\fIpattern\fR]
+.SH DESCRIPTION
+The
+.B ios-camera-extractor
+script takes a file path or file path matching pattern for images (usually in HEIC format) and:
+- Converts the images to PNG and JPG formats.
+- Reduces the image resolution to a maximum of 2048px while preserving the aspect ratio.
+- Generates a PDF containing the images (two per page) for easy printing.
+
+The script is designed to be called from anywhere in the terminal, and it will create a folder named
+.B camera_extractions_{DATE}
+with the converted images and the generated PDF.
+
+.SH OPTIONS
+The script takes a file pattern as an argument:
+.TP
+.B pattern
+A pattern that matches one or more image files. The pattern must be wrapped in quotes to prevent the shell from expanding it before the script runs. For example:
+.BR "IMG_59*" 
+will match all images starting with "IMG_59".
+
+Supported pattern types include:
+- \fI*.HEIC\fR: Matches all HEIC files in the directory.
+- \fIIMG_59*.HEIC\fR: Matches all HEIC files starting with "IMG_59".
+- \fIIMG_????.HEIC\fR: Matches files that start with "IMG_" followed by exactly 4 characters (e.g., "IMG_1234.HEIC").
+
+.SH EXAMPLES
+.TP
+.B "ios-camera-extractor \"IMG_59*\""
+Converts all HEIC images that start with "IMG_59" in the current directory.
+
+.TP
+.B "ios-camera-extractor \"*.HEIC\""
+Converts all HEIC files in the current directory.
+
+.SH NOTES
+- Make sure to wrap the file pattern in quotes to prevent the shell from expanding it prematurely.
+- The script relies on ImageMagick for conversion and PDF generation, so it must be installed on your system.
+- The output folder will be named according to the current date and time in the format "camera_extractions_YYYYMMDDHHMMSS".
+- The generated PDF will contain two images per page.
+
+.SH AUTHOR
+Written by [Your Name].
+
+.SH SEE ALSO
+.BR convert (1),
+.BR magick (1)
+
